@@ -8,12 +8,14 @@ export type Perfil =
   | 'Aprovador'
   | 'OperadorPonto'
   | 'Visualizador'
+  | 'Colaborador'
 
 interface AuthUser {
   nome: string
   email: string
   perfil: Perfil
   expiracao: string
+  colaboradorId?: number
 }
 
 interface AuthContextValue {

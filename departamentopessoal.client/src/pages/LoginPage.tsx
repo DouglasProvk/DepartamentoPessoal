@@ -25,8 +25,9 @@ export function LoginPage() {
         email: data.email,
         perfil: data.perfil as never,
         expiracao: data.expiracao,
+        colaboradorId: data.colaboradorId,
       })
-      navigate('/')
+      navigate(data.perfil === 'Colaborador' ? '/portal' : '/')
     } catch {
       setErro('E-mail ou senha inválidos.')
     } finally {

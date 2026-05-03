@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { Plus, CheckCircle, Trash2 } from 'lucide-react'
+import { Plus, CheckCircle, Trash2, Download } from 'lucide-react'
 import { salarioService } from '../../services/salarioService'
 import { colaboradorService } from '../../services/colaboradorService'
+import { contrachequeService } from '../../services/contrachequeService'
 import type { SalarioResponse, SalarioRequest, ColaboradorList } from '../../types'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -62,6 +63,17 @@ export function SalariosPage() {
     if (!confirm('Excluir este lançamento?')) return
     await salarioService.delete(id)
     setSalarios(prev => prev.filter(s => s.id !== id))
+  }
+
+  const handleDownloadPdf = async (s: SalarioResponse) => {
+    const response = await contrachequeService.download(s.id)
+    const url = window.URL.createObjectURL(new Blob([response.data]))
+    const link = document.createElement('a')
+    link.href = url
+    const mes = String(s.mesReferencia).padStart(2, '0')
+    link.download = `contracheque_${s.colaboradorNome.replace(/\s+/g,'_')}_${mes}_${s.anoReferencia}.pdf`
+    link.click()
+    window.URL.revokeObjectURL(url)
   }
 
   const fmt = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -132,6 +144,9 @@ export function SalariosPage() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1">
+                        <Button variant="ghost" size="sm" onClick={() => handleDownloadPdf(s)} title="Baixar contracheque PDF">
+                          <Download size={14} className="text-blue-500" />
+                        </Button>
                         {!s.pago && canApprove && (
                           <Button variant="ghost" size="sm" onClick={() => handlePagar(s.id)}>
                             <CheckCircle size={14} className="text-green-500" />

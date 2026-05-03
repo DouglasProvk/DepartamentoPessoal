@@ -10,6 +10,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Abono> Abonos { get; set; }
     public DbSet<RegistroPonto> RegistrosPonto { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<MensagemRH> MensagensRH { get; set; }
+    public DbSet<SolicitacaoBeneficio> SolicitacoesBeneficios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

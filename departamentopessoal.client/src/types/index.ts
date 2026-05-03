@@ -115,6 +115,61 @@ export interface AbonoRequest {
   anoReferencia: number
 }
 
+export interface MensagemRHResponse {
+  id: number
+  colaboradorId: number
+  colaboradorNome: string
+  assunto: string
+  mensagem: string
+  resposta?: string
+  status: string
+  statusDescricao: string
+  criadoEm: string
+  respondidoEm?: string
+}
+
+export interface MensagemRHRequest {
+  assunto: string
+  mensagem: string
+}
+
+export interface SolicitacaoBeneficioResponse {
+  id: number
+  colaboradorId: number
+  colaboradorNome: string
+  tipoBeneficio: string
+  tipoBeneficioDescricao: string
+  descricao: string
+  observacaoRH?: string
+  status: string
+  statusDescricao: string
+  criadoEm: string
+  atualizadoEm: string
+}
+
+export interface SolicitacaoBeneficioRequest {
+  tipoBeneficio: string
+  descricao: string
+}
+
+export interface AtualizarSolicitacaoRequest {
+  status: string
+  observacaoRH?: string
+}
+
+export interface UsuarioResponse {
+  id: number
+  nome: string
+  email: string
+  perfil: string
+  perfilDescricao: string
+  ativo: boolean
+  colaboradorId?: number
+  colaboradorNome?: string
+  criadoEm: string
+  ultimoAcessoEm?: string
+}
+
 export interface RegistroPontoResponse {
   id: number
   colaboradorId: number

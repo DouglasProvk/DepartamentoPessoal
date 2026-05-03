@@ -14,5 +14,10 @@ public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
         builder.Property(u => u.SenhaHash).IsRequired();
         builder.Property(u => u.Perfil).HasConversion<string>().HasMaxLength(30);
         builder.HasIndex(u => u.Email).IsUnique();
+
+        builder.HasOne(u => u.Colaborador)
+               .WithMany()
+               .HasForeignKey(u => u.ColaboradorId)
+               .OnDelete(DeleteBehavior.SetNull);
     }
 }

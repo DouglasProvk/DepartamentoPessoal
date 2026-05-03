@@ -7,4 +7,5 @@ public class LoginOutput
     public string Email { get; set; } = string.Empty;
     public string Perfil { get; set; } = string.Empty;
     public DateTime Expiracao { get; set; }
+    public int? ColaboradorId { get; set; }
 }

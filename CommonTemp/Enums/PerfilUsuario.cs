@@ -7,5 +7,6 @@ public enum PerfilUsuario
     AnalistaFolha = 3,
     Aprovador = 4,
     OperadorPonto = 5,
-    Visualizador = 6
+    Visualizador = 6,
+    Colaborador = 7
 }

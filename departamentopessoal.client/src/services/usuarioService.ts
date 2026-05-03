@@ -7,6 +7,8 @@ export interface UsuarioOutput {
   perfil: string
   perfilDescricao: string
   ativo: boolean
+  colaboradorId?: number
+  colaboradorNome?: string
   criadoEm: string
   ultimoAcessoEm: string | null
 }
@@ -16,6 +18,7 @@ export interface UsuarioInput {
   email: string
   senha: string
   perfil: string
+  colaboradorId?: number
 }
 
 export interface AlterarSenhaInput {

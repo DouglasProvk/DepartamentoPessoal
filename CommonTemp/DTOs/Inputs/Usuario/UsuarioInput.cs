@@ -8,4 +8,5 @@ public class UsuarioInput
     public string Email { get; set; } = string.Empty;
     public string Senha { get; set; } = string.Empty;
     public PerfilUsuario Perfil { get; set; }
+    public int? ColaboradorId { get; set; }
 }

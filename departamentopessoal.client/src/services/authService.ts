@@ -11,6 +11,7 @@ interface LoginOutput {
   email: string
   perfil: string
   expiracao: string
+  colaboradorId?: number
 }
 
 export const authService = {
