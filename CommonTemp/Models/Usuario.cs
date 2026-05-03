@@ -12,4 +12,8 @@ public class Usuario
     public bool Ativo { get; set; } = true;
     public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
     public DateTime? UltimoAcessoEm { get; set; }
+
+    // Vínculo com colaborador (quando perfil = Colaborador)
+    public int? ColaboradorId { get; set; }
+    public Colaborador? Colaborador { get; set; }
 }

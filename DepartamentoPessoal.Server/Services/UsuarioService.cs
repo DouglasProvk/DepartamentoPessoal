@@ -13,6 +13,7 @@ public class UsuarioService(AppDbContext db) : IUsuarioService
     {
         return await db.Usuarios
             .AsNoTracking()
+            .Include(u => u.Colaborador)
             .OrderBy(u => u.Nome)
             .Select(u => MapToOutput(u))
             .ToListAsync();
@@ -20,7 +21,7 @@ public class UsuarioService(AppDbContext db) : IUsuarioService
 
     public async Task<UsuarioOutput?> GetByIdAsync(int id)
     {
-        var u = await db.Usuarios.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        var u = await db.Usuarios.Include(u => u.Colaborador).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         return u is null ? null : MapToOutput(u);
     }
 
@@ -32,27 +33,37 @@ public class UsuarioService(AppDbContext db) : IUsuarioService
             Email = input.Email.ToLower().Trim(),
             SenhaHash = BCrypt.Net.BCrypt.HashPassword(input.Senha),
             Perfil = input.Perfil,
-            Ativo = true
+            Ativo = true,
+            ColaboradorId = input.ColaboradorId
         };
 
         db.Usuarios.Add(usuario);
         await db.SaveChangesAsync();
+
+        if (usuario.ColaboradorId.HasValue)
+            await db.Entry(usuario).Reference(u => u.Colaborador).LoadAsync();
+
         return MapToOutput(usuario);
     }
 
     public async Task<UsuarioOutput?> UpdateAsync(int id, UsuarioInput input)
     {
-        var usuario = await db.Usuarios.FindAsync(id);
+        var usuario = await db.Usuarios.Include(u => u.Colaborador).FirstOrDefaultAsync(u => u.Id == id);
         if (usuario is null) return null;
 
         usuario.Nome = input.Nome;
         usuario.Email = input.Email.ToLower().Trim();
         usuario.Perfil = input.Perfil;
+        usuario.ColaboradorId = input.ColaboradorId;
 
         if (!string.IsNullOrWhiteSpace(input.Senha))
             usuario.SenhaHash = BCrypt.Net.BCrypt.HashPassword(input.Senha);
 
         await db.SaveChangesAsync();
+
+        if (usuario.ColaboradorId.HasValue && usuario.Colaborador is null)
+            await db.Entry(usuario).Reference(u => u.Colaborador).LoadAsync();
+
         return MapToOutput(usuario);
     }
 
@@ -93,6 +104,8 @@ public class UsuarioService(AppDbContext db) : IUsuarioService
         Perfil = u.Perfil,
         PerfilDescricao = u.Perfil.ToString(),
         Ativo = u.Ativo,
+        ColaboradorId = u.ColaboradorId,
+        ColaboradorNome = u.Colaborador?.Nome,
         CriadoEm = u.CriadoEm,
         UltimoAcessoEm = u.UltimoAcessoEm
     };

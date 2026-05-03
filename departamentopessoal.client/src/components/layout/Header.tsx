@@ -10,6 +10,7 @@ const perfilBadge: Record<string, string> = {
   Aprovador: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400',
   OperadorPonto: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400',
   Visualizador: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400',
+  Colaborador: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
 }
 
 const perfilLabel: Record<string, string> = {
@@ -19,6 +20,7 @@ const perfilLabel: Record<string, string> = {
   Aprovador: 'Aprovador',
   OperadorPonto: 'Operador de Ponto',
   Visualizador: 'Visualizador',
+  Colaborador: 'Colaborador',
 }
 
 export function Header({ title }: { title: string }) {

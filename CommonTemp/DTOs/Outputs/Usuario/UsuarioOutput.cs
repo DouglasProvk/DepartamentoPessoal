@@ -10,6 +10,8 @@ public class UsuarioOutput
     public PerfilUsuario Perfil { get; set; }
     public string PerfilDescricao { get; set; } = string.Empty;
     public bool Ativo { get; set; }
+    public int? ColaboradorId { get; set; }
+    public string? ColaboradorNome { get; set; }
     public DateTime CriadoEm { get; set; }
     public DateTime? UltimoAcessoEm { get; set; }
 }

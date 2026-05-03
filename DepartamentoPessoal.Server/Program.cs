@@ -65,6 +65,9 @@ builder.Services.AddScoped<IColaboradorService, ColaboradorService>();
 builder.Services.AddScoped<ISalarioService, SalarioService>();
 builder.Services.AddScoped<IAbonoService, AbonoService>();
 builder.Services.AddScoped<IPontoService, PontoService>();
+builder.Services.AddScoped<IContrachequeService, ContrachequeService>();
+builder.Services.AddScoped<IPortalService, PortalService>();
+builder.Services.AddScoped<IMensagensRHService, MensagensRHService>();
 
 builder.Services.AddCors(opt =>
     opt.AddDefaultPolicy(p => p
